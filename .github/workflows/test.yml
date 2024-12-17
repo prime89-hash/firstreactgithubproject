@@ -30,4 +30,7 @@ jobs:
           run: npm run build
         - name: Deploy
           run: echo "deploying ..."
-        
+        - name: Deploy to production
+          if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+          run: |
+            echo "Deploying to production..."

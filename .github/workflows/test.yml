@@ -2,15 +2,32 @@ name: React Workflow
 on: push
 jobs:
     test-job:
-        runs-on: ubuntu-latest #runner 
-        steps:
-            - name: Get code  #download the code from the repo
-              uses: actions/checkout@v3
-            - name: Install NodeJs
-              uses: actions/setup-node@v3
-              with:
-                node-version: 18
-            - name: Install depencies
-              run: npm ci
-            - name: Run tests
-              run: npm test    
+      runs-on: ubuntu-latest #runner 
+      steps:
+          - name: Get code  #download the code from the repo
+            uses: actions/checkout@v3
+          - name: Install NodeJs
+            uses: actions/setup-node@v3
+            with:
+              node-version: 18
+          - name: Install depencies
+            run: npm ci
+          - name: Run tests
+            run: npm test
+    deploy:
+      needs: test-job
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: install nodejs
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+        - name: install depencies
+          run: npm ci
+        - name: build project
+          run: npm run build
+        - name: Deploy
+          run: echo "deploying ..."
+        

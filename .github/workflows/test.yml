@@ -48,7 +48,15 @@ jobs:
           run: npm run build
         - name: Deploy
           run: echo "deploying ..."
-        # - name: Deploy to production
+        - name: download artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: dist-files
+        - name: output contents
+          run: ls
+        - name: Deployed
+          run: echo "deployed ..."
+          # - name: Deploy to production
         #   if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
         #   run: |
         #     echo "Deploying to production..."
